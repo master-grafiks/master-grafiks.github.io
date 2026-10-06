@@ -74,7 +74,8 @@
     }));
     shell.querySelector("[data-back]")?.addEventListener("click", () => { step = Math.max(0, step - 1); renderQuestion(); });
     shell.querySelector("[data-finish]")?.addEventListener("click", () => {
-      if (!selectedMany.length) {
+      const finalSelection = Array.isArray(answers[question.id]) ? answers[question.id] : [];
+      if (!finalSelection.length) {
         const error = shell.querySelector(".form-error");
         error.hidden = false;
         error.textContent = "Выберите хотя бы один вариант.";

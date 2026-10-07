@@ -117,7 +117,7 @@
 
   function renderResult() {
     if (!shell) return;
-    shell.innerHTML = `<div class="quiz-result" aria-live="polite"><p class="section-label">Расчёт готов</p><h3>Ваш расчёт</h3><dl><div><dt>Что строят</dt><dd>${escapeHtml(answers.service)}</dd></div><div><dt>Город / регион</dt><dd>${escapeHtml(answers.region)}</dd></div><div><dt>Желаемое количество заявок</dt><dd>${escapeHtml(answers.leads)} в месяц</dd></div><div><dt>Рекламный бюджет</dt><dd>${escapeHtml(answers.budget)}</dd></div><div><dt>Текущие каналы</dt><dd>${escapeHtml((answers.sources || []).join(" + "))}</dd></div></dl><div class="quiz-actions"><button type="button" class="text-button" data-restart>Изменить ответы</button><button type="button" class="button" data-open-form>Получить расчёт</button></div></div>`;
+    shell.innerHTML = `<div class="quiz-result" aria-live="polite"><p class="section-label">Расчёт готов</p><h3>Ваш расчёт</h3><dl><div><dt>Направление</dt><dd>${escapeHtml(answers.service)}</dd></div><div><dt>Город / регион</dt><dd>${escapeHtml(answers.region)}</dd></div><div><dt>Желаемое количество заявок</dt><dd>${escapeHtml(answers.leads)} в месяц</dd></div><div><dt>Рекламный бюджет</dt><dd>${escapeHtml(answers.budget)}</dd></div><div><dt>Текущие каналы</dt><dd>${escapeHtml((answers.sources || []).join(" + "))}</dd></div></dl><div class="quiz-actions"><button type="button" class="text-button" data-restart>Изменить ответы</button><button type="button" class="button" data-open-form>Получить расчёт</button></div></div>`;
     shell.querySelector("[data-restart]")?.addEventListener("click", () => { step = 0; renderQuestion(); });
     shell.querySelector("[data-open-form]")?.addEventListener("click", renderLeadForm);
   }

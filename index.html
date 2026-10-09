@@ -612,20 +612,194 @@
   @keyframes project-line-in { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   @keyframes project-value-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 }
+/* quiz-project:end *//* quiz-project:start */.site-header.site-header-mobile { display: none; }
+
+.anti-quiz-heading { max-width: 1280px; margin-bottom: 48px; text-align: left; }
+.anti-quiz-heading h2 { max-width: 860px; }
+.anti-quiz-shell { width: min(100%, 1280px); min-height: 620px; }
+.anti-quiz-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+.anti-quiz-main { min-width: 0; }
+.anti-quiz-main .quiz-step { min-height: 560px; padding: clamp(22px, 4vw, 42px); border: 1px solid rgb(255 255 255 / 13%); background: #101111; }
+.anti-quiz-main .quiz-step::before { display: none; }
+.anti-quiz-main .quiz-shell h3,
+.anti-quiz-main h3 { max-width: 680px; margin: clamp(34px, 5vw, 58px) 0 30px; font-size: clamp(2rem, 4vw, 4rem); }
+
+.anti-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.anti-choice {
+  min-height: 74px;
+  padding: 17px 20px;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: #151616;
+  color: #d8d5cf;
+  text-align: left;
+  font-size: .98rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+.anti-choice b { color: #6f6d68; font-family: var(--font-mono); font-size: 1.1rem; transition: color 150ms ease, transform 150ms ease; }
+.anti-choice:hover,
+.anti-choice:focus-visible,
+.anti-choice.is-selected { border-color: #ff2a2a; outline: none; background: rgb(255 42 42 / 6%); color: #fff; }
+.anti-choice:hover b,
+.anti-choice:focus-visible b,
+.anti-choice.is-selected b { color: #ff2a2a; transform: translateX(3px); }
+.anti-choice:disabled { cursor: wait; opacity: .58; }
+
+.anti-text-field input {
+  min-height: 72px;
+  padding: 0 20px;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 0;
+  background: #151616;
+  font-size: 1.05rem;
+}
+.anti-text-field input:focus { border-color: #ff2a2a; box-shadow: none; }
+.anti-quiz-main .quiz-actions { margin-top: 30px; }
+.anti-quiz-main .quiz-actions .button { border-radius: 0; }
+
+.expert-panel,
+.estimate-summary {
+  min-width: 0;
+  border: 1px solid rgb(255 255 255 / 14%);
+  background: #1a1b1b;
+}
+.expert-panel-head {
+  min-height: 88px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgb(255 255 255 / 12%);
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px;
+}
+.expert-avatar { position: relative; width: 48px; height: 52px; overflow: hidden; border: 1px solid rgb(255 42 42 / 65%); background: #0d0e0e; }
+.expert-avatar img { object-fit: cover; object-position: 52% 20%; transform: scale(1.72); transform-origin: 54% 18%; }
+.expert-panel-head > div:nth-child(2) { min-width: 0; display: grid; gap: 3px; }
+.expert-panel-head strong { color: #f0ede7; font-size: .86rem; letter-spacing: .035em; text-transform: uppercase; }
+.expert-panel-head span,
+.expert-panel-head b,
+.expert-message span,
+.expert-typing span,
+.estimate-summary-head,
+.estimate-summary dt,
+.anti-lead-copy > span {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.expert-panel-head span { color: #85837d; font-size: .67rem; }
+.expert-panel-head b { color: #ff2a2a; font-size: .7rem; }
+.expert-feed { height: 470px; padding: 20px; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #4f4e4a transparent; }
+.expert-empty { max-width: 330px; margin: 120px auto 0; color: #74726d; text-align: center; font-family: var(--font-mono); font-size: .75rem; line-height: 1.6; text-transform: uppercase; letter-spacing: .06em; }
+.expert-message { position: relative; margin: 0 0 12px; padding: 18px 18px 19px 22px; border-left: 2px solid #ff2a2a; background: #121313; animation: expert-message-in 300ms ease both; }
+.expert-message span { display: block; margin-bottom: 9px; color: #ff2a2a; font-size: .63rem; }
+.expert-message p { margin: 0; color: #d2cfc8; font-size: .91rem; line-height: 1.55; }
+.expert-typing { min-height: 54px; padding: 0 18px; display: flex; align-items: center; gap: 7px; color: #77756f; }
+.expert-typing span { margin-right: 6px; font-size: .62rem; }
+.expert-typing i { width: 5px; height: 5px; background: #ff2a2a; animation: expert-dot 780ms ease-in-out infinite; }
+.expert-typing i:nth-child(3) { animation-delay: 130ms; }
+.expert-typing i:nth-child(4) { animation-delay: 260ms; }
+@keyframes expert-dot { 0%, 65%, 100% { opacity: .25; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
+@keyframes expert-message-in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+
+.anti-quiz-workspace.is-final { align-items: stretch; }
+.anti-quiz-lead { height: 100%; padding: clamp(24px, 4vw, 42px); border: 1px solid rgb(255 255 255 / 14%); background: #101111; }
+.anti-lead-copy > span { display: block; margin-bottom: 22px; color: #ff2a2a; font-size: .67rem; }
+.anti-lead-copy h3 { margin: 0 0 16px; font-size: clamp(2rem, 3.5vw, 3.55rem); }
+.anti-lead-copy p { max-width: 620px; margin: 0 0 30px; color: #a6a39d; line-height: 1.62; }
+.anti-quiz-lead form { display: grid; gap: 18px; }
+.anti-quiz-lead .field span,
+.anti-quiz-lead legend { color: #aaa8a2; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; }
+.anti-quiz-lead .field input { min-height: 62px; border-radius: 0; background: #171818; }
+.anti-quiz-lead .field input:focus { box-shadow: none; }
+.anti-quiz-lead fieldset { border: 0; }
+.anti-quiz-lead .contact-methods label { min-height: 50px; border-radius: 0; }
+.anti-quiz-lead .button { min-height: 64px; border-radius: 0; }
+.anti-lead-success { min-height: 520px; padding: 42px; border: 1px solid rgb(255 255 255 / 14%); display: flex; flex-direction: column; justify-content: center; background: #101111; }
+.anti-lead-success span { margin-bottom: 16px; color: #ff2a2a; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+.anti-lead-success h3 { margin: 0; }
+
+.estimate-summary { position: relative; padding: clamp(24px, 4vw, 42px); }
+.estimate-summary::before { content: ""; position: absolute; top: -1px; left: -1px; width: 80px; height: 3px; background: #ff2a2a; }
+.estimate-summary-head { padding-bottom: 24px; border-bottom: 1px solid rgb(255 255 255 / 14%); display: flex; justify-content: space-between; gap: 18px; color: #d8d5cf; font-size: .69rem; }
+.estimate-summary-head b { color: #ff2a2a; }
+.estimate-summary dl { margin: 20px 0 30px; }
+.estimate-summary dl > div { padding: 21px 0; border-bottom: 1px solid rgb(255 255 255 / 11%); display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 18px; }
+.estimate-summary dt { color: #77756f; font-size: .64rem; }
+.estimate-summary dd { margin: 0; color: #f0ede7; font-size: 1rem; font-weight: 650; }
+
+@media (min-width: 901px) {
+  .anti-quiz-workspace { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+  .expert-panel { position: sticky; top: 24px; }
+}
+
+@media (max-width: 900px) {
+  .anti-choice-grid { grid-template-columns: 1fr; }
+  .anti-quiz-main .quiz-step { min-height: auto; }
+  .expert-feed { height: auto; max-height: 390px; }
+  .expert-empty { margin: 54px auto; }
+}
+
+@media (max-width: 760px) {
+  .site-header.site-header-stage { display: none; }
+  .site-header.site-header-mobile { position: sticky; top: 0; display: flex; }
+  .anti-quiz-heading { margin-bottom: 34px; }
+  .anti-quiz-shell { min-height: 0; }
+  .anti-quiz-main .quiz-step,
+  .anti-quiz-lead,
+  .estimate-summary { padding: 22px 18px; }
+  .anti-quiz-main h3 { margin: 34px 0 24px; font-size: clamp(2rem, 9vw, 3rem); }
+  .anti-choice { min-height: 64px; padding: 14px 16px; }
+  .expert-panel-head { min-height: 78px; grid-template-columns: 44px minmax(0, 1fr) auto; }
+  .expert-avatar { width: 42px; height: 46px; }
+  .expert-feed { padding: 14px; max-height: 350px; }
+  .expert-message { padding: 16px 15px 17px 18px; }
+  .estimate-summary dl > div { grid-template-columns: 92px minmax(0, 1fr); }
+}
+
+@media (max-width: 520px) {
+  .quiz-rail-step { gap: 7px; }
+  .quiz-rail-step i { display: block; }
+  .anti-quiz-main .quiz-actions,
+  .quiz-actions-group { align-items: stretch; flex-direction: column-reverse; }
+  .anti-quiz-main .quiz-actions .button { width: 100%; }
+  .estimate-summary dl > div { grid-template-columns: 1fr; gap: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expert-message,
+  .expert-typing i { animation: none; }
+}
 /* quiz-project:end */</style><!-- formspree:xvkzapjr --></head><body><main><div class="hero-header-stage"><header class="site-header site-header-mobile"><a class="brand" href="#top" aria-label="Мастер Графикс — на главную"><img src="/master-grafiks-logo.webp" alt="Мастер Графикс" width="820" height="461" loading="eager" fetchPriority="high" decoding="async" data-nimg="1"/></a><a class="button button-small header-calculate" href="#quiz">Посчитать рекламу</a></header><div class="hero-scroll-stage" id="top"><section class="hero"><header class="site-header site-header-stage"><a class="brand" href="#top" aria-label="Мастер Графикс — на главную"><img src="/master-grafiks-logo.webp" alt="Мастер Графикс" width="820" height="461" loading="eager" fetchPriority="high" decoding="async" data-nimg="1"/></a><a class="button button-small header-calculate" href="#quiz">Посчитать рекламу</a></header><div class="house-sequence" aria-hidden="true"><img src="/house-stage-1.webp" alt="" loading="eager" fetchPriority="high" decoding="async" sizes="100vw" class="house-frame house-frame-1" data-nimg="fill" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/><img src="/house-stage-2.webp" alt="" loading="eager" fetchPriority="high" decoding="async" sizes="100vw" class="house-frame house-frame-2" data-nimg="fill" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/><img src="/house-stage-3.webp" alt="" loading="lazy" decoding="async" sizes="100vw" class="house-frame house-frame-3" data-nimg="fill" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/><img src="/house-stage-4.webp" alt="" loading="lazy" decoding="async" sizes="100vw" class="house-frame house-frame-4" data-nimg="fill" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/><img src="/house-stage-5.webp" alt="" loading="lazy" decoding="async" sizes="100vw" class="house-frame house-frame-5" data-nimg="fill" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/></div><div class="hero-laser" aria-hidden="true"><i class="laser-horizontal"></i><i class="laser-vertical"></i><i class="laser-dot"></i></div><ol class="build-progress" aria-label="Этапы работы с рекламой"><li class="is-active"><b>0<!-- -->1</b><span>Аудит</span></li><li class=""><b>0<!-- -->2</b><span>КП</span></li><li class=""><b>0<!-- -->3</b><span>Запуск</span></li><li class=""><b>0<!-- -->4</b><span>Заявки</span></li><li class=""><b>0<!-- -->5</b><span>Клиенты</span></li></ol><div class="hero-person" aria-hidden="true"><img src="/hero-person-cutout.webp" alt="" loading="eager" fetchPriority="high" decoding="async" sizes="(max-width: 900px) 100vw, 58vw" data-nimg="fill" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/></div><div class="hero-person-label"><strong>АРТЁМ БЫКОВ</strong><span>Маркетолог в строительной нише</span></div><div class="hero-copy"><p class="eyebrow">Реклама для строительных компаний</p><h1>Простой бригады <span>стоит дороже рекламы</span></h1><p class="hero-description">Скажите, сколько объектов хотите взять. Мы прикинем, сколько для этого нужно заявок и рекламного бюджета.</p><div class="hero-action"><button type="button" class="button magnetic-button">Посчитать рекламу</button></div></div></section></div></div><section class="case-section section-pad" id="case"><div class="case-copy"><div><p class="section-label">Кейс строительной компании «Садоград»</p><h2>30–70+ целевых обращений в месяц<span class="case-title-detail">на строительство домов и бань</span></h2><p class="case-subtitle">От строителей — для строителей</p><p class="case-note">Мы сами строим дома и бани. Прошлой осенью реклама привела 389 заявок по 712 ₽. Выручка с них — 15,6 млн ₽.</p></div></div><div class="case-metrics " aria-label="Результаты кейса Садоград"><div class="case-metric"><strong class="metric-number"><span class="sr-only">389</span><span class="metric-animated" aria-hidden="true"><b><span>0</span></b></span></strong><span>заявок</span></div><div class="case-metric"><strong class="metric-number"><span class="sr-only">712<!-- --> ₽</span><span class="metric-animated" aria-hidden="true"><b><span>0</span></b><em>₽</em></span></strong><span>за обращение</span></div><div class="case-metric"><strong class="metric-number"><span class="sr-only">15,6<!-- --> млн ₽</span><span class="metric-animated" aria-hidden="true"><b><span>0,0</span></b><em>млн ₽</em></span></strong><span>выручки с рекламы</span></div></div></section><section class="quiz-section section-pad" id="quiz"><div class="section-heading"><p class="section-label">Расчёт рекламы</p><h2>Сколько заявок нужно именно вам?</h2></div><div class="quiz-shell"><div class="quiz-step"><div class="quiz-rail" aria-label="Шаг 1 из 5"><div class="quiz-rail-step is-active "><span>01</span><i aria-hidden="true"></i></div><div class="quiz-rail-step  "><span>02</span><i aria-hidden="true"></i></div><div class="quiz-rail-step  "><span>03</span><i aria-hidden="true"></i></div><div class="quiz-rail-step  "><span>04</span><i aria-hidden="true"></i></div><div class="quiz-rail-step  "><span>05</span></div></div><h3>Какое направление продвигаете?</h3><div role="radiogroup" aria-required="false" dir="ltr" data-slot="radio-group" class="grid gap-3 answer-grid" aria-label="Какое направление продвигаете?" tabindex="-1" style="outline:none"><label class="answer"><button type="button" role="radio" aria-checked="false" data-state="unchecked" value="Дома" data-slot="radio-group-item" class="aspect-square size-4 shrink-0 rounded-full border border-input text-primary shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40" tabindex="-1" data-radix-collection-item=""></button><input type="radio" aria-hidden="true" tabindex="-1" style="position:absolute;pointer-events:none;opacity:0;margin:0;transform:translateX(-100%)" value="Дома"/><span>Дома</span></label><label class="answer"><button type="button" role="radio" aria-checked="false" data-state="unchecked" value="Бани" data-slot="radio-group-item" class="aspect-square size-4 shrink-0 rounded-full border border-input text-primary shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40" tabindex="-1" data-radix-collection-item=""></button><input type="radio" aria-hidden="true" tabindex="-1" style="position:absolute;pointer-events:none;opacity:0;margin:0;transform:translateX(-100%)" value="Бани"/><span>Бани</span></label><label class="answer"><button type="button" role="radio" aria-checked="false" data-state="unchecked" value="Ремонт и отделка" data-slot="radio-group-item" class="aspect-square size-4 shrink-0 rounded-full border border-input text-primary shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40" tabindex="-1" data-radix-collection-item=""></button><input type="radio" aria-hidden="true" tabindex="-1" style="position:absolute;pointer-events:none;opacity:0;margin:0;transform:translateX(-100%)" value="Ремонт и отделка"/><span>Ремонт и отделка</span></label><label class="answer"><button type="button" role="radio" aria-checked="false" data-state="unchecked" value="Коммерческие объекты" data-slot="radio-group-item" class="aspect-square size-4 shrink-0 rounded-full border border-input text-primary shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40" tabindex="-1" data-radix-collection-item=""></button><input type="radio" aria-hidden="true" tabindex="-1" style="position:absolute;pointer-events:none;opacity:0;margin:0;transform:translateX(-100%)" value="Коммерческие объекты"/><span>Коммерческие объекты</span></label><label class="answer"><button type="button" role="radio" aria-checked="false" data-state="unchecked" value="Инженерные работы" data-slot="radio-group-item" class="aspect-square size-4 shrink-0 rounded-full border border-input text-primary shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40" tabindex="-1" data-radix-collection-item=""></button><input type="radio" aria-hidden="true" tabindex="-1" style="position:absolute;pointer-events:none;opacity:0;margin:0;transform:translateX(-100%)" value="Инженерные работы"/><span>Инженерные работы</span></label><label class="answer"><button type="button" role="radio" aria-checked="false" data-state="unchecked" value="Другое" data-slot="radio-group-item" class="aspect-square size-4 shrink-0 rounded-full border border-input text-primary shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40" tabindex="-1" data-radix-collection-item=""></button><input type="radio" aria-hidden="true" tabindex="-1" style="position:absolute;pointer-events:none;opacity:0;margin:0;transform:translateX(-100%)" value="Другое"/><span>Другое</span></label></div><div class="quiz-actions"><span></span></div></div></div></section><footer class="footer"><span>© 2026 Мастер Графикс</span><nav aria-label="Юридическая информация"><a href="/privacy">Политика конфиденциальности</a><a href="/personal-data-policy">Обработка персональных данных</a></nav></footer><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false" data-react-aria-top-layer="true"></section></main><script>(() => {
   const questions = [
     { id: "service", title: "Какое направление продвигаете?", options: ["Дома", "Бани", "Ремонт и отделка", "Коммерческие объекты", "Инженерные работы", "Другое"] },
     { id: "region", title: "Где работаете?", text: true, placeholder: "Город / регион" },
     { id: "leads", title: "Сколько заявок в месяц хотите получать?", options: ["До 30", "30–50", "50–70", "70–100", "Больше 100"] },
     { id: "budget", title: "Какую сумму готовы инвестировать в маркетинг и рекламу?", caption: "Ежемесячный бюджет, включая рекламные площадки.", options: ["До 50 000 ₽", "50–100 тыс. ₽", "100–200 тыс. ₽", "200–300 тыс. ₽", "Больше 300 тыс. ₽"] },
-    { id: "sources", title: "Откуда сейчас привлекаете клиентов?", multiple: true, options: ["Яндекс", "ВКонтакте", "Авито", "SEO", "Карты", "Рекомендации", "Партнёры", "Рекламы сейчас нет", "Другое"] },
+    { id: "sources", title: "Откуда сейчас привлекаете клиентов?", options: ["Яндекс", "ВКонтакте", "Авито", "SEO", "Карты", "Рекомендации", "Партнёры", "Рекламы сейчас нет", "Другое"] },
     { id: "promotionUrl", title: "Где вас можно посмотреть?", caption: "Сайт, Авито, ВКонтакте или другая площадка", text: true, optional: true, placeholder: "Вставьте ссылку" },
   ];
+  const stepLabels = ["НАПРАВЛЕНИЕ", "ГЕОГРАФИЯ", "ЦЕЛЬ", "БЮДЖЕТ", "КАНАЛЫ", "ПЛОЩАДКИ"];
+  const leadAverages = { "До 30": 25, "30–50": 40, "50–70": 60, "70–100": 85, "Больше 100": 120 };
+  const budgetAverages = { "До 50 000 ₽": 40000, "50–100 тыс. ₽": 75000, "100–200 тыс. ₽": 150000, "200–300 тыс. ₽": 250000, "Больше 300 тыс. ₽": 350000 };
   const contactMethods = ["Телефон", "Telegram", "MAX", "WhatsApp"];
   const answers = {};
+  let messages = [];
   let step = 0;
-  let projectRecent = -1;
+  let typing = false;
   let quizStarted = false;
+  let replyTimer = 0;
   const shell = document.querySelector(".quiz-shell");
   const metricId = document.querySelector('meta[name="yandex-metrika-id"]')?.content || "";
   const leadEndpoint = document.querySelector('meta[name="lead-endpoint"]')?.content || "";
@@ -672,104 +846,112 @@
     trackEvent("quiz_start");
   }
 
+  function calculateLeadCost(leads, budget) {
+    const leadCount = leadAverages[leads];
+    const budgetValue = budgetAverages[budget];
+    return leadCount && budgetValue ? budgetValue / leadCount : 0;
+  }
+
+  function expertReply(id, value) {
+    if (id === "service") {
+      if (value === "Дома") return 'Отлично. В малоэтажке цикл сделки длинный. Сразу закладываем стоимость заявки 1500–2500 ₽, чтобы не собирать "просто спросить" и не тратить время продажников.';
+      if (value === "Бани") return "Понял. Тут цикл короче и чеки ниже. Адекватная цена нормального лида по рынку сейчас в районе 800–1200 ₽.";
+      if (value === "Ремонт и отделка") return "Самая перегретая ниша. Заявки дешевле 1500 ₽ — это обычно мусор. Придется строить жесткий фильтр на посадочной странице.";
+      return "Специфичное направление. Тут не работает классический спам рекламой, будем собирать узкую семантику и бить точечно.";
+    }
+    if (id === "region") return "Гео зафиксировал. Аукцион и ставки в этом регионе проверю перед созвоном.";
+    if (id === "leads") {
+      if (value === "До 30") return "30 заявок — это примерно 3–5 нормальных встреч/замеров. Хватит для загрузки одной бригады.";
+      if (value === "30–50") return "Рабочий объем. Из 40 заявок при адекватном отделе продаж вытащите 6–8 квалифицированных встреч.";
+      return "Сразу предупреждаю: такой объем потребует мощного бюджета и CRM. На коленке и в блокноте это не обработать — заявки протухнут.";
+    }
+    if (id === "budget") {
+      return calculateLeadCost(answers.leads, value) < 1000
+        ? "Смотрите: вы хотите хороший объем, но за такие деньги качественных заявок сейчас нет. Предлагаю снизить план по лидам, иначе сольем бюджет на мусорный трафик."
+        : "Математика бьется. Бюджет вполне адекватен заявленному аппетиту. Сможем выкупать целевой трафик без жестких ограничений.";
+    }
+    if (id === "sources") {
+      return value === "Рекомендации" || value === "Рекламы сейчас нет"
+        ? "Понял, значит строим систему с нуля. Сначала конверсионная посадка, потом трафик. Фундамент будет крепким."
+        : "Ок. Значит, первым делом залезем в текущие кампании и найдем, где сливается бюджет. Обычно 30% денег уходит в никуда, мы их спасем.";
+    }
+    return "Ссылку принял. До созвона лично прокликаю ресурс, чтобы понимать, где там теряются клиенты.";
+  }
+
   function rail() {
     return `<div class="quiz-rail" aria-label="Шаг ${step + 1} из ${questions.length}">${questions.map((_, index) => `<div class="quiz-rail-step ${index <= step ? "is-active" : ""} ${index < step ? "is-complete" : ""}"><span>0${index + 1}</span>${index < questions.length - 1 ? '<i aria-hidden="true"></i>' : ""}</div>`).join("")}</div>`;
   }
 
-  function projectSheet(completed = false) {
-    const fields = [
-      ["service", "01", "НАПРАВЛЕНИЕ"],
-      ["region", "02", "ГЕОГРАФИЯ"],
-      ["leads", "03", "ЦЕЛЬ"],
-      ["budget", "04", "БЮДЖЕТ"],
-      ["sources", "05", "КАНАЛЫ"],
-      ["promotionUrl", "06", "ПЛОЩАДКИ"],
-    ];
-    const values = fields.map(([id]) => {
-      const value = Array.isArray(answers[id]) ? answers[id].join(" + ") : answers[id] || "";
-      return id === "promotionUrl" && completed && !value ? "Не указаны" : value;
-    });
-    const filled = values.filter(Boolean).length;
-    return `<aside class="promotion-project ${filled === fields.length ? "is-complete" : ""}" aria-label="Проект продвижения"><div class="promotion-project-head"><span>Проект продвижения</span><b>${String(filled).padStart(2, "0")} / 06</b></div><div class="promotion-project-list">${fields.map(([, number, label], index) => `<div class="promotion-project-item ${values[index] ? "is-filled" : ""} ${index === projectRecent ? "is-recent" : ""}"><span class="promotion-project-number">${number}</span><div><span class="promotion-project-label">${label}</span><strong>${escapeHtml(values[index] || "—")}</strong></div></div>`).join("")}</div></aside>`;
+  function expertPanel() {
+    return `<aside class="expert-panel" aria-label="Комментарий маркетолога"><div class="expert-panel-head"><div class="expert-avatar"><img src="/hero-person-cutout.webp" alt="Артём Быков"></div><div><strong>Артём Быков</strong><span>считает медиаплан</span></div><b>${String(Math.min(step + 1, 6)).padStart(2, "0")} / 06</b></div><div class="expert-feed" aria-live="polite">${!messages.length && !typing ? '<p class="expert-empty">Расчёт начнётся после первого ответа.</p>' : ""}${messages.map((message) => `<article class="expert-message"><span>${String(message.step + 1).padStart(2, "0")} / ${stepLabels[message.step]}</span><p>${escapeHtml(message.text)}</p></article>`).join("")}${typing ? '<div class="expert-typing"><span>печатает</span><i></i><i></i><i></i></div>' : ""}</div></aside>`;
   }
 
   function renderQuestion() {
     if (!shell) return;
     const question = questions[step];
-    const selected = answers[question.id];
-    const selectedMany = Array.isArray(selected) ? selected : [];
-    const questionControl = question.text
-      ? `<label class="field quiz-text-field"><span class="sr-only">${question.title}</span><input name="${question.id}" value="${escapeHtml(typeof selected === "string" ? selected : "")}" placeholder="${escapeHtml(question.placeholder)}" ${question.id === "promotionUrl" ? 'inputmode="url" autocomplete="url"' : 'autocomplete="address-level2"'}></label>`
-      : `<div class="answer-grid ${question.multiple ? "multi-grid" : ""}" role="${question.multiple ? "group" : "radiogroup"}" aria-label="${question.title}">${question.options.map((option) => { const checked = question.multiple ? selectedMany.includes(option) : selected === option; return `<button type="button" class="answer ${checked ? "is-selected" : ""}" data-value="${escapeHtml(option)}" aria-pressed="${checked}"><span class="static-check" aria-hidden="true">${checked ? "✓" : ""}</span><span>${escapeHtml(option)}</span></button>`; }).join("")}</div>`;
-    const nextControls = question.text
-      ? question.optional
-        ? '<div class="quiz-actions-group"><button type="button" class="text-button" data-skip>Пропустить</button><button type="button" class="button" data-next>Продолжить</button></div>'
-        : '<button type="button" class="button" data-next>Продолжить</button>'
-      : question.multiple ? '<button type="button" class="button" data-next-multiple>Продолжить</button>' : "";
-    shell.innerHTML = `<div class="quiz-workspace"><div class="quiz-main"><div class="quiz-step">${rail()}<h3>${question.title}</h3>${question.caption ? `<p class="question-caption">${question.caption}</p>` : ""}${questionControl}<p class="form-error" role="alert" hidden></p><div class="quiz-actions">${step > 0 ? '<button type="button" class="text-button" data-back>Назад</button>' : "<span></span>"}${nextControls}</div></div></div>${projectSheet()}</div>`;
-    shell.querySelectorAll("[data-value]").forEach((button) => button.addEventListener("click", () => {
-      markQuizStarted();
-      const value = button.dataset.value;
-      if (question.multiple) {
-        const current = Array.isArray(answers[question.id]) ? answers[question.id] : [];
-        answers[question.id] = current.includes(value) ? current.filter((item) => item !== value) : [...current, value];
-        projectRecent = step;
-        renderQuestion();
-      } else {
-        answers[question.id] = value;
-        projectRecent = step;
-        trackEvent(`quiz_step_${step + 1}`, { answer: value });
-        if (step < questions.length - 1) { step += 1; window.setTimeout(renderQuestion, 120); }
-      }
-    }));
+    const selected = answers[question.id] || "";
+    const control = question.text
+      ? `<label class="field quiz-text-field anti-text-field"><span class="sr-only">${question.title}</span><input name="${question.id}" value="${escapeHtml(selected)}" placeholder="${escapeHtml(question.placeholder)}" ${question.id === "promotionUrl" ? 'inputmode="url" autocomplete="url"' : 'autocomplete="address-level2"'} ${typing ? "disabled" : ""}></label>`
+      : `<div class="anti-choice-grid" role="radiogroup" aria-label="${question.title}">${question.options.map((option) => `<button type="button" class="anti-choice ${selected === option ? "is-selected" : ""}" data-value="${escapeHtml(option)}" aria-pressed="${selected === option}" ${typing ? "disabled" : ""}><span>${escapeHtml(option)}</span><b aria-hidden="true">→</b></button>`).join("")}</div>`;
+    const textActions = question.text ? `<div class="quiz-actions-group">${question.optional ? '<button type="button" class="text-button" data-skip>Пропустить</button>' : ""}<button type="button" class="button" data-next>Далее</button></div>` : "";
+    shell.innerHTML = `<div class="anti-quiz-workspace"><div class="anti-quiz-main"><div class="quiz-step">${rail()}<h3>${question.title}</h3>${question.caption ? `<p class="question-caption">${question.caption}</p>` : ""}${control}<p class="form-error" role="alert" hidden></p><div class="quiz-actions">${step > 0 ? '<button type="button" class="text-button" data-back>Назад</button>' : "<span></span>"}${textActions}</div></div></div>${expertPanel()}</div>`;
+    const feed = shell.querySelector(".expert-feed");
+    if (feed) feed.scrollTop = feed.scrollHeight;
+    shell.querySelectorAll("[data-value]").forEach((button) => button.addEventListener("click", () => answerAndAdvance(button.dataset.value)));
     const textInput = shell.querySelector(`[name="${question.id}"]`);
-    const continueText = () => {
-      const value = textInput?.value.trim() || "";
-      if (!value && !question.optional) {
-        const error = shell.querySelector(".form-error");
-        error.hidden = false;
-        error.textContent = "Укажите город или регион.";
-        return;
-      }
-      markQuizStarted();
-      if (value) answers[question.id] = value;
-      else delete answers[question.id];
-      projectRecent = step;
-      trackEvent(`quiz_step_${step + 1}`, { answer: value });
-      if (step < questions.length - 1) { step += 1; renderQuestion(); }
-      else { trackEvent("quiz_complete"); renderResult(); }
-    };
     textInput?.addEventListener("input", () => { answers[question.id] = textInput.value; });
     textInput?.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); continueText(); } });
     shell.querySelector("[data-next]")?.addEventListener("click", continueText);
-    shell.querySelector("[data-skip]")?.addEventListener("click", () => {
-      delete answers[question.id];
-      projectRecent = step;
-      trackEvent(`quiz_step_${step + 1}`, { answer: "skipped" });
-      trackEvent("quiz_complete");
-      renderResult();
-    });
-    shell.querySelector("[data-back]")?.addEventListener("click", () => { projectRecent = -1; step = Math.max(0, step - 1); renderQuestion(); });
-    shell.querySelector("[data-next-multiple]")?.addEventListener("click", () => {
-      const finalSelection = Array.isArray(answers[question.id]) ? answers[question.id] : [];
-      if (!finalSelection.length) {
-        const error = shell.querySelector(".form-error");
-        error.hidden = false;
-        error.textContent = "Выберите хотя бы один вариант.";
-        return;
-      }
-      projectRecent = step;
-      trackEvent(`quiz_step_${step + 1}`, { answer: finalSelection.join(" + ") });
-      if (step < questions.length - 1) { step += 1; renderQuestion(); }
-      else { trackEvent("quiz_complete"); renderResult(); }
-    });
+    shell.querySelector("[data-skip]")?.addEventListener("click", () => answerAndAdvance("", "skipped"));
+    shell.querySelector("[data-back]")?.addEventListener("click", goBack);
   }
 
-  function renderResult() {
-    if (!shell) return;
-    shell.innerHTML = `<div class="quiz-workspace"><div class="quiz-main"><div class="quiz-result" aria-live="polite"><h3>Проверим, всё ли верно</h3><dl><div><dt>Направление</dt><dd>${escapeHtml(answers.service)}</dd></div><div><dt>Город / регион</dt><dd>${escapeHtml(answers.region)}</dd></div><div><dt>Желаемое количество заявок</dt><dd>${escapeHtml(answers.leads)} в месяц</dd></div><div><dt>Рекламный бюджет</dt><dd>${escapeHtml(answers.budget)}</dd></div><div><dt>Текущие каналы</dt><dd>${escapeHtml((answers.sources || []).join(" + "))}</dd></div><div><dt>Площадки</dt><dd>${escapeHtml(answers.promotionUrl || "Не указаны")}</dd></div></dl><div class="quiz-actions"><button type="button" class="text-button" data-restart>Изменить ответы</button><button type="button" class="button" data-open-form>Получить рекомендации</button></div></div></div>${projectSheet(true)}</div>`;
-    shell.querySelector("[data-restart]")?.addEventListener("click", () => { projectRecent = -1; step = 0; renderQuestion(); });
-    shell.querySelector("[data-open-form]")?.addEventListener("click", renderLeadForm);
+  function answerAndAdvance(value, analyticsValue = value) {
+    if (typing) return;
+    markQuizStarted();
+    const question = questions[step];
+    if (value) answers[question.id] = value;
+    else delete answers[question.id];
+    const stepIndex = step;
+    const reply = expertReply(question.id, value);
+    trackEvent(`quiz_step_${stepIndex + 1}`, { answer: analyticsValue });
+    typing = true;
+    renderQuestion();
+    clearTimeout(replyTimer);
+    replyTimer = window.setTimeout(() => {
+      messages = [...messages.filter((message) => message.step !== stepIndex), { step: stepIndex, text: reply }];
+      typing = false;
+      if (stepIndex === questions.length - 1) {
+        trackEvent("quiz_complete");
+        trackEvent("result_view");
+        trackEvent("lead_form_open", { placement: "anti_quiz_final" });
+        renderFinal();
+      } else {
+        step = stepIndex + 1;
+        renderQuestion();
+      }
+    }, 650);
+  }
+
+  function continueText() {
+    const question = questions[step];
+    const input = shell?.querySelector(`[name="${question.id}"]`);
+    const value = input?.value.trim() || "";
+    if (!value && !question.optional) {
+      const error = shell.querySelector(".form-error");
+      error.hidden = false;
+      error.textContent = "Укажите город или регион.";
+      return;
+    }
+    answerAndAdvance(value, value || "skipped");
+  }
+
+  function goBack() {
+    if (typing) return;
+    const targetStep = Math.max(0, step - 1);
+    messages = messages.filter((message) => message.step < targetStep);
+    step = targetStep;
+    renderQuestion();
   }
 
   function formatPhone(value) {
@@ -786,16 +968,16 @@
     return result;
   }
 
-  function renderLeadForm() {
-    let section = document.getElementById("lead-form");
-    if (section) { section.scrollIntoView({ behavior: "smooth" }); return; }
-    trackEvent("lead_form_open", { placement: "quiz_result" });
-    section = document.createElement("section");
-    section.id = "lead-form";
-    section.className = "lead-section section-pad is-visible";
-    section.innerHTML = `<div><h2>Оставьте контакты</h2><p class="form-intro">Посмотрим ваши ответы и площадки и свяжемся, чтобы обсудить, какие каналы стоит проверить в первую очередь.</p></div><form novalidate><label class="field"><span>Телефон *</span><input name="phone" value="+7" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label><label class="field"><span>Имя <em>необязательно</em></span><input name="name" autocomplete="name"></label><fieldset><legend>Способ связи:</legend><div class="contact-methods">${contactMethods.map((method, index) => `<label><input type="radio" name="contactMethod" value="${method}" ${index === 0 ? "checked" : ""}><span>${method}</span></label>`).join("")}</div></fieldset><div class="consent"><input id="personal-data-consent" name="consent" type="checkbox"><label for="personal-data-consent">Согласен с <a href="/privacy">политикой конфиденциальности</a> и <a href="/personal-data-policy">обработкой персональных данных</a></label></div><p class="form-error" role="alert" hidden></p><button type="submit" class="button">Отправить</button></form>`;
-    document.querySelector(".footer")?.before(section);
-    const form = section.querySelector("form");
+  function summaryPanel() {
+    const rows = [["Ниша", answers.service], ["Регион", answers.region], ["Цель", `${answers.leads} заявок`], ["Бюджет", answers.budget]];
+    return `<aside class="estimate-summary" aria-label="Сводка расчёта"><div class="estimate-summary-head"><span>SUMMARY / ВВОДНЫЕ</span><b>06 / 06</b></div><dl>${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${escapeHtml(value || "—")}</dd></div>`).join("")}</dl><button type="button" class="text-button" data-edit>Изменить ответы</button></aside>`;
+  }
+
+  function renderFinal() {
+    if (!shell) return;
+    shell.innerHTML = `<div class="anti-quiz-workspace is-final"><div class="anti-quiz-main"><div class="anti-quiz-lead" id="lead-form"><div class="anti-lead-copy"><span>07 / МЕДИАПЛАН</span><h3>Предварительная картина ясна.</h3><p>Оставьте номер — я перепроверю математику по реальным ставкам в вашем регионе и пришлю точный PDF-медиаплан. Без навязывания услуг.</p></div><form novalidate><label class="field"><span>Телефон *</span><input name="phone" value="+7" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label><label class="field"><span>Имя <em>необязательно</em></span><input name="name" autocomplete="name"></label><fieldset><legend>Способ связи:</legend><div class="contact-methods">${contactMethods.map((method, index) => `<label><input type="radio" name="contactMethod" value="${method}" ${index === 0 ? "checked" : ""}><span>${method}</span></label>`).join("")}</div></fieldset><div class="consent"><input id="personal-data-consent" name="consent" type="checkbox"><label for="personal-data-consent">Согласен с <a href="/privacy">политикой конфиденциальности</a> и <a href="/personal-data-policy">обработкой персональных данных</a></label></div><p class="form-error" role="alert" hidden></p><button type="submit" class="button">Получить точный медиаплан</button></form></div></div>${summaryPanel()}</div>`;
+    shell.querySelector("[data-edit]")?.addEventListener("click", () => { messages = messages.filter((message) => message.step < questions.length - 1); step = questions.length - 1; renderQuestion(); });
+    const form = shell.querySelector("form");
     const phone = form.querySelector('[name="phone"]');
     phone.addEventListener("input", () => { phone.value = formatPhone(phone.value); });
     form.addEventListener("submit", async (event) => {
@@ -827,26 +1009,24 @@
       submit.textContent = "Отправляем…";
       error.hidden = true;
       try {
-        const response = await fetch(leadEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(payload),
-        });
+        const response = await fetch(leadEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) });
         if (!response.ok) throw new Error("request_failed");
         trackEvent("lead_submit", { contactMethod: payload.contactMethod });
-        form.innerHTML = '<p class="section-label">Заявка принята</p><h3>Исходные данные сохранены для расчёта.</h3>';
+        shell.querySelector(".anti-quiz-main").innerHTML = '<div class="anti-lead-success" role="status"><span>Заявка принята</span><h3>Исходные данные сохранены для расчёта.</h3></div>';
       } catch {
         error.hidden = false;
         error.textContent = "Не удалось отправить. Попробуйте ещё раз.";
         submit.disabled = false;
-        submit.textContent = "Отправить";
+        submit.textContent = "Получить точный медиаплан";
       }
     });
-    window.setTimeout(() => section.scrollIntoView({ behavior: "smooth" }), 40);
   }
 
   initAnalytics();
   readAttribution();
+  shell?.classList.add("anti-quiz-shell");
+  const headingLabel = document.querySelector("#quiz .section-heading .section-label");
+  if (headingLabel) headingLabel.textContent = "Живая открытая смета";
   renderQuestion();
   document.querySelectorAll('.hero-action .button, .header-calculate').forEach((button) => button.addEventListener("click", () => {
     trackEvent("hero_cta_click", { placement: button.classList.contains("header-calculate") ? "header" : "hero" });

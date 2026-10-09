@@ -787,7 +787,7 @@
     { id: "region", title: "Где работаете?", text: true, placeholder: "Город / регион" },
     { id: "leads", title: "Сколько заявок в месяц хотите получать?", options: ["До 30", "30–50", "50–70", "70–100", "Больше 100"] },
     { id: "budget", title: "Какую сумму готовы инвестировать в маркетинг и рекламу?", caption: "Ежемесячный бюджет, включая рекламные площадки.", options: ["До 50 000 ₽", "50–100 тыс. ₽", "100–200 тыс. ₽", "200–300 тыс. ₽", "Больше 300 тыс. ₽"] },
-    { id: "sources", title: "Откуда сейчас привлекаете клиентов?", options: ["Яндекс", "ВКонтакте", "Авито", "SEO", "Карты", "Рекомендации", "Партнёры", "Рекламы сейчас нет", "Другое"] },
+    { id: "sources", title: "Откуда сейчас привлекаете клиентов?", multi: true, options: ["Яндекс", "ВКонтакте", "Авито", "SEO", "Карты", "Рекомендации", "Партнёры", "Рекламы сейчас нет", "Другое"] },
     { id: "promotionUrl", title: "Где вас можно посмотреть?", caption: "Сайт, Авито, ВКонтакте или другая площадка", text: true, optional: true, placeholder: "Вставьте ссылку" },
   ];
   const stepLabels = ["НАПРАВЛЕНИЕ", "ГЕОГРАФИЯ", "ЦЕЛЬ", "БЮДЖЕТ", "КАНАЛЫ", "ПЛОЩАДКИ"];
@@ -854,28 +854,31 @@
 
   function expertReply(id, value) {
     if (id === "service") {
-      if (value === "Дома") return 'Отлично. В малоэтажке цикл сделки длинный. Сразу закладываем стоимость заявки 1500–2500 ₽, чтобы не собирать "просто спросить" и не тратить время продажников.';
-      if (value === "Бани") return "Понял. Тут цикл короче и чеки ниже. Адекватная цена нормального лида по рынку сейчас в районе 800–1200 ₽.";
-      if (value === "Ремонт и отделка") return "Самая перегретая ниша. Заявки дешевле 1500 ₽ — это обычно мусор. Придется строить жесткий фильтр на посадочной странице.";
-      return "Специфичное направление. Тут не работает классический спам рекламой, будем собирать узкую семантику и бить точечно.";
+      if (value === "Дома") return 'Отлично. В малоэтажке цикл сделки длинный. Сразу закладываем стоимость заявки 1500–2500 ₽, чтобы отсеять тех, кто зашел "просто спросить".';
+      if (value === "Бани") return "Понял. Тут цикл короче и чеки ниже. Адекватная цена качественного лида по рынку сейчас в районе 800–1200 ₽.";
+      if (value === "Ремонт и отделка") return "Самая перегретая ниша. Обращения дешевле 1500 ₽ редко доходят до договора. Придется строить жесткий фильтр на посадочной странице.";
+      return "Специфичное направление. Тут не работает слепой охват, будем собирать узкую семантику и бить точечно.";
     }
     if (id === "region") return "Гео зафиксировал. Аукцион и ставки в этом регионе проверю перед созвоном.";
     if (id === "leads") {
       if (value === "До 30") return "30 заявок — это примерно 3–5 нормальных встреч/замеров. Хватит для загрузки одной бригады.";
       if (value === "30–50") return "Рабочий объем. Из 40 заявок при адекватном отделе продаж вытащите 6–8 квалифицированных встреч.";
-      return "Сразу предупреждаю: такой объем потребует мощного бюджета и CRM. На коленке и в блокноте это не обработать — заявки протухнут.";
+      return "Сразу предупреждаю: такой объем потребует внедренной CRM. Без автоматизации часть обращений просто потеряется из-за долгой обработки.";
     }
     if (id === "budget") {
       return calculateLeadCost(answers.leads, value) < 1000
-        ? "Смотрите: вы хотите хороший объем, но за такие деньги качественных заявок сейчас нет. Предлагаю снизить план по лидам, иначе сольем бюджет на мусорный трафик."
+        ? "Смотрите: вы хотите хороший объем, но за такие деньги целевых заявок сейчас нет. Предлагаю скорректировать план по лидам, иначе бюджет уйдет на пустые клики."
         : "Математика бьется. Бюджет вполне адекватен заявленному аппетиту. Сможем выкупать целевой трафик без жестких ограничений.";
     }
     if (id === "sources") {
-      return value === "Рекомендации" || value === "Рекламы сейчас нет"
-        ? "Понял, значит строим систему с нуля. Сначала конверсионная посадка, потом трафик. Фундамент будет крепким."
-        : "Ок. Значит, первым делом залезем в текущие кампании и найдем, где сливается бюджет. Обычно 30% денег уходит в никуда, мы их спасем.";
+      const selectedSources = Array.isArray(value) ? value : [value].filter(Boolean);
+      const systemOnly = new Set(["Рекомендации", "Рекламы сейчас нет"]);
+      const hasAdvertisingChannel = selectedSources.some((source) => !systemOnly.has(source));
+      return hasAdvertisingChannel
+        ? "Ок. Значит, первым делом проведем аудит текущих кампаний и найдем точки, где сейчас неэффективно расходуется бюджет. Обычно удается оптимизировать до 30% затрат."
+        : "Понял, значит строим систему с нуля. Сначала конверсионная посадка, потом трафик. Фундамент будет крепким.";
     }
-    return "Ссылку принял. До созвона лично прокликаю ресурс, чтобы понимать, где там теряются клиенты.";
+    return "Ссылку принял. До созвона лично проанализирую ресурс, чтобы понимать его конверсионный потенциал.";
   }
 
   function rail() {
@@ -889,28 +892,59 @@
   function renderQuestion() {
     if (!shell) return;
     const question = questions[step];
-    const selected = answers[question.id] || "";
+    const selected = question.multi
+      ? (Array.isArray(answers[question.id]) ? answers[question.id] : [])
+      : (answers[question.id] || "");
+    const isSelected = (option) => question.multi ? selected.includes(option) : selected === option;
     const control = question.text
       ? `<label class="field quiz-text-field anti-text-field"><span class="sr-only">${question.title}</span><input name="${question.id}" value="${escapeHtml(selected)}" placeholder="${escapeHtml(question.placeholder)}" ${question.id === "promotionUrl" ? 'inputmode="url" autocomplete="url"' : 'autocomplete="address-level2"'} ${typing ? "disabled" : ""}></label>`
-      : `<div class="anti-choice-grid" role="radiogroup" aria-label="${question.title}">${question.options.map((option) => `<button type="button" class="anti-choice ${selected === option ? "is-selected" : ""}" data-value="${escapeHtml(option)}" aria-pressed="${selected === option}" ${typing ? "disabled" : ""}><span>${escapeHtml(option)}</span><b aria-hidden="true">→</b></button>`).join("")}</div>`;
-    const textActions = question.text ? `<div class="quiz-actions-group">${question.optional ? '<button type="button" class="text-button" data-skip>Пропустить</button>' : ""}<button type="button" class="button" data-next>Далее</button></div>` : "";
-    shell.innerHTML = `<div class="anti-quiz-workspace"><div class="anti-quiz-main"><div class="quiz-step">${rail()}<h3>${question.title}</h3>${question.caption ? `<p class="question-caption">${question.caption}</p>` : ""}${control}<p class="form-error" role="alert" hidden></p><div class="quiz-actions">${step > 0 ? '<button type="button" class="text-button" data-back>Назад</button>' : "<span></span>"}${textActions}</div></div></div>${expertPanel()}</div>`;
+      : `<div class="anti-choice-grid" role="${question.multi ? "group" : "radiogroup"}" aria-label="${question.title}">${question.options.map((option) => `<button type="button" class="anti-choice ${isSelected(option) ? "is-selected" : ""}" data-value="${escapeHtml(option)}" aria-pressed="${isSelected(option)}" ${typing ? "disabled" : ""}><span>${escapeHtml(option)}</span><b aria-hidden="true">${question.multi ? (isSelected(option) ? "✓" : "+") : "→"}</b></button>`).join("")}</div>`;
+    const questionActions = question.text
+      ? `<div class="quiz-actions-group">${question.optional ? '<button type="button" class="text-button" data-skip>Пропустить</button>' : ""}<button type="button" class="button" data-next>Далее</button></div>`
+      : question.multi
+        ? '<div class="quiz-actions-group"><button type="button" class="button" data-next>Далее</button></div>'
+        : "";
+    shell.innerHTML = `<div class="anti-quiz-workspace"><div class="anti-quiz-main"><div class="quiz-step">${rail()}<h3>${question.title}</h3>${question.caption ? `<p class="question-caption">${question.caption}</p>` : ""}${control}<p class="form-error" role="alert" hidden></p><div class="quiz-actions">${step > 0 ? '<button type="button" class="text-button" data-back>Назад</button>' : "<span></span>"}${questionActions}</div></div></div>${expertPanel()}</div>`;
     const feed = shell.querySelector(".expert-feed");
     if (feed) feed.scrollTop = feed.scrollHeight;
-    shell.querySelectorAll("[data-value]").forEach((button) => button.addEventListener("click", () => answerAndAdvance(button.dataset.value)));
+    shell.querySelectorAll("[data-value]").forEach((button) => button.addEventListener("click", () => {
+      if (question.multi) toggleMultiChoice(button.dataset.value);
+      else answerAndAdvance(button.dataset.value);
+    }));
     const textInput = shell.querySelector(`[name="${question.id}"]`);
     textInput?.addEventListener("input", () => { answers[question.id] = textInput.value; });
     textInput?.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); continueText(); } });
-    shell.querySelector("[data-next]")?.addEventListener("click", continueText);
+    shell.querySelector("[data-next]")?.addEventListener("click", question.multi ? continueMulti : continueText);
     shell.querySelector("[data-skip]")?.addEventListener("click", () => answerAndAdvance("", "skipped"));
     shell.querySelector("[data-back]")?.addEventListener("click", goBack);
+  }
+
+  function toggleMultiChoice(value) {
+    if (typing) return;
+    const current = Array.isArray(answers.sources) ? answers.sources : [];
+    answers.sources = current.includes(value)
+      ? current.filter((source) => source !== value)
+      : [...current, value];
+    renderQuestion();
+  }
+
+  function continueMulti() {
+    const selectedSources = Array.isArray(answers.sources) ? answers.sources : [];
+    if (!selectedSources.length) {
+      const error = shell.querySelector(".form-error");
+      error.hidden = false;
+      error.textContent = "Выберите хотя бы один вариант.";
+      return;
+    }
+    answerAndAdvance([...selectedSources], selectedSources.join(", "));
   }
 
   function answerAndAdvance(value, analyticsValue = value) {
     if (typing) return;
     markQuizStarted();
     const question = questions[step];
-    if (value) answers[question.id] = value;
+    const hasValue = Array.isArray(value) ? value.length > 0 : Boolean(value);
+    if (hasValue) answers[question.id] = value;
     else delete answers[question.id];
     const stepIndex = step;
     const reply = expertReply(question.id, value);
@@ -922,10 +956,14 @@
       messages = [...messages.filter((message) => message.step !== stepIndex), { step: stepIndex, text: reply }];
       typing = false;
       if (stepIndex === questions.length - 1) {
-        trackEvent("quiz_complete");
-        trackEvent("result_view");
-        trackEvent("lead_form_open", { placement: "anti_quiz_final" });
-        renderFinal();
+        renderQuestion();
+        shell.querySelectorAll("button, input").forEach((control) => { control.disabled = true; });
+        window.setTimeout(() => {
+          trackEvent("quiz_complete");
+          trackEvent("result_view");
+          trackEvent("lead_form_open", { placement: "anti_quiz_final" });
+          renderFinal();
+        }, 550);
       } else {
         step = stepIndex + 1;
         renderQuestion();
@@ -975,7 +1013,7 @@
 
   function renderFinal() {
     if (!shell) return;
-    shell.innerHTML = `<div class="anti-quiz-workspace is-final"><div class="anti-quiz-main"><div class="anti-quiz-lead" id="lead-form"><div class="anti-lead-copy"><span>07 / МЕДИАПЛАН</span><h3>Предварительная картина ясна.</h3><p>Оставьте номер — я перепроверю математику по реальным ставкам в вашем регионе и пришлю точный PDF-медиаплан. Без навязывания услуг.</p></div><form novalidate><label class="field"><span>Телефон *</span><input name="phone" value="+7" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label><label class="field"><span>Имя <em>необязательно</em></span><input name="name" autocomplete="name"></label><fieldset><legend>Способ связи:</legend><div class="contact-methods">${contactMethods.map((method, index) => `<label><input type="radio" name="contactMethod" value="${method}" ${index === 0 ? "checked" : ""}><span>${method}</span></label>`).join("")}</div></fieldset><div class="consent"><input id="personal-data-consent" name="consent" type="checkbox"><label for="personal-data-consent">Согласен с <a href="/privacy">политикой конфиденциальности</a> и <a href="/personal-data-policy">обработкой персональных данных</a></label></div><p class="form-error" role="alert" hidden></p><button type="submit" class="button">Получить точный медиаплан</button></form></div></div>${summaryPanel()}</div>`;
+    shell.innerHTML = `<div class="anti-quiz-workspace is-final"><div class="anti-quiz-main"><div class="anti-quiz-lead" id="lead-form"><div class="anti-lead-copy"><span>07 / МЕДИАПЛАН</span><h3>Предварительная картина ясна.</h3><p>Оставьте номер — я перепроверю математику по реальным ставкам в вашем регионе и пришлю точный PDF-медиаплан. Без навязывания услуг.</p></div><form novalidate><label class="field"><span>Имя <em>необязательно</em></span><input name="name" autocomplete="name"></label><label class="field"><span>Телефон *</span><input name="phone" value="+7" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label><fieldset><legend>Способ связи:</legend><div class="contact-methods">${contactMethods.map((method, index) => `<label><input type="radio" name="contactMethod" value="${method}" ${index === 0 ? "checked" : ""}><span>${method}</span></label>`).join("")}</div></fieldset><div class="consent"><input id="personal-data-consent" name="consent" type="checkbox"><label for="personal-data-consent">Согласен с <a href="/privacy">политикой конфиденциальности</a> и <a href="/personal-data-policy">обработкой персональных данных</a></label></div><p class="form-error" role="alert" hidden></p><button type="submit" class="button">Получить точный медиаплан</button></form></div></div>${summaryPanel()}</div>`;
     shell.querySelector("[data-edit]")?.addEventListener("click", () => { messages = messages.filter((message) => message.step < questions.length - 1); step = questions.length - 1; renderQuestion(); });
     const form = shell.querySelector("form");
     const phone = form.querySelector('[name="phone"]');
